@@ -1,0 +1,33 @@
+GET http://localhost:3000/
+
+###
+GET http://localhost:3000/655ccd884adc47c0eac61670
+
+
+###
+
+POST  http://localhost:3000/
+Content-Type: application/json
+
+{
+    "order": 2,
+    "title": "wefwr",
+    "content": "cdv",
+    "status": "frrfr",
+    "KPI": "{
+        "mission": "mission",
+        "option": "option"
+    }"
+}
+###
+
+DELETE http://localhost:3000/655ccd884adc47c0eac61670
+
+###
+
+PATCH http://localhost:3000/655dc5dce1128db37880559e
+Content-Type: application/json
+
+{
+    "title": "new title"
+}
