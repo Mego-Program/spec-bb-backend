@@ -1,8 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
-import Spec from "./moduls.js";
+import Spec from "./SpecModel.js";
+import Kpi from "./KPIModel.js"
 import dotenv from 'dotenv';
-import e from "express";
 dotenv.config();
 
 const url = "mongodb+srv://sw0583227258:TXfPeaUTNrCJQv02@cluster0.emkfwut.mongodb.net/?retryWrites=true&w=majority";
@@ -26,12 +26,9 @@ app.listen(port, () => {
 
 app.use(express.json())
 
-// import router from './routes/subscribers.js';
-// const subscribersRouter = router
-// app.use('/subscribers', subscribersRouter)
 
 // getting all
-app.get("/", async (req, res) => {
+app.get("/spec", async (req, res) => {
     try {
         const foundSpecs = await Spec.find()
     return res.json(foundSpecs)
@@ -40,19 +37,27 @@ app.get("/", async (req, res) => {
     }
 });
 
-app.get("/:id", getSpec, (req, res) => {
-    res.json(res.geting)
-    });
+app.get("/spec/:id", getSpec, async (req, res) => {
+    try {
+        const foundSpec = await Spec.findById(req.params.id).populate("Kpi");
+        if (!foundSpec) {
+            return res.status(404).json({ message: "Cannot find spec" });
+        }
+        return res.json(foundSpec);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 // creating One
-app.post("/", async (req, res) => {
+app.post("/spec", async (req, res) => { 
     const newSpec = new Spec({
         order: req.body.order,
         title: req.body.title,   
         content: req.body.content,
         createDate: req.body.createDate,
         status: req.body.status,
-        // KPI: req.body.KPI
+        Kpi: req.body.Kpi
         })
     try{
         const createSpec = await newSpec.save()
@@ -63,7 +68,7 @@ app.post("/", async (req, res) => {
     });
 
 // updating One
-app.patch("/:id", getSpec, async (req, res) => {
+app.patch("/spec/:id", getSpec, async (req, res) => {
     if (req.body.order != null) {
         res.geting.order = req.body.order
     }
@@ -79,9 +84,9 @@ app.patch("/:id", getSpec, async (req, res) => {
     if (req.body.status != null) {
         res.geting.status = req.body.status
     }
-    // if (req.body.KPI != null) {
-    //     res.geting.KPI = req.body.KPI
-    // }
+    if (req.body.Kpi != null) {
+        res.geting.Kpi = req.body.Kpi
+    }
     if (req.body.boardID != null) {
         res.geting.boardID = req.body.boardID
     }
@@ -94,7 +99,7 @@ app.patch("/:id", getSpec, async (req, res) => {
     });
 
 // deleting One
-app.delete("/:id", getSpec, async (req, res) => {
+app.delete("/spec/:id", getSpec, async (req, res) => {
     try{
         await res.geting.deleteOne()
         res.json({message: "Deleted Spec"})
@@ -114,5 +119,81 @@ async function getSpec(req, res, next){
         return res.status(500).json({message: err.message })
     }
     res.geting = geting
+    next()
+}
+
+
+
+
+
+// getting all
+app.get("/kpi", async (req, res) => {
+    try {
+        const foundKpi = await Kpi.find()
+    return res.json(foundKpi)
+    } catch (err) {
+        res.status(500).json({message: err.message })
+    }
+});
+
+app.get("/kpi/:id", getKpi, async (req, res) => {
+    res.json(res.getingkpi)
+    });
+
+// creating One
+app.post("/kpi", async (req, res) => { 
+    const newKpi = new Kpi({
+        mission: req.body.mission,
+        option: req.body.option,   
+        deta: req.body.deta
+        })
+    try{
+        const createKpi = await newKpi.save()
+        return res.status(201).json(createKpi)
+    } catch (err) {
+        res.status(400).json({message: err.message})
+    }
+    });
+
+// updating One
+app.patch("/kpi/:id", getKpi, async (req, res) => {
+    if (req.body.mission != null) {
+        res.geting.mission = req.body.mission
+    }
+    if (req.body.option != null) {
+        res.geting.option = req.body.option
+    }
+    if (req.body.deta != null) {
+        res.getingkpi.deta = req.body.deta
+    }
+    try {
+        const updatedKpi = await res.getingkpi.save()
+        res.json(updatedKpi)
+    } catch (err){
+        res.status(400).json({massage: err.massage})
+    }
+    });
+
+// deleting One
+app.delete("/kpi/:id", getKpi, async (req, res) => {
+    try{
+        await res.getingkpi.deleteOne()
+        res.json({message: "Deleted Kpi"})
+    } catch (err){
+        res.status(500).json({message: err.message })
+    }
+    });
+
+async function getKpi(req, res, next){
+    let getingkpi
+    try {
+        getingkpi = await Kpi.findById(req.params.id)
+        if (getingkpi === null){
+            return res.status(404).json({message: "cannot find kpi"})
+        } 
+    } catch (err){
+        return res.status(500).json({message: err.message })
+    }
+    res.getingkpi = getingkpi
     next()
 }

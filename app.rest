@@ -1,33 +1,47 @@
-GET http://localhost:3000/
+GET http://localhost:3000/spec
 
 ###
-GET http://localhost:3000/655ccd884adc47c0eac61670
+GET http://localhost:3000/spec/6565e0d564485285012d0b7f
 
 
 ###
 
-POST  http://localhost:3000/
+POST http://localhost:3000/spec
 Content-Type: application/json
 
 {
     "order": 2,
     "title": "wefwr",
     "content": "cdv",
-    "status": "frrfr",
-    "KPI": "{
-        "mission": "mission",
-        "option": "option"
-    }"
+    "status": "In progress",
+    "date": "2023-11-27",
+    "Kpi":[] 
+    
 }
 ###
 
-DELETE http://localhost:3000/655ccd884adc47c0eac61670
+DELETE http://localhost:3000/spec/6565e0a764485285012d0b7c
+
 
 ###
 
-PATCH http://localhost:3000/655dc5dce1128db37880559e
+PATCH http://localhost:3000/65646a4607dfc737a87e7850
 Content-Type: application/json
 
 {
-    "title": "new title"
+    "order": "3"
 }
+
+###
+
+POST http://localhost:3000/kpi
+Content-Type: application/json
+
+{
+    "mission": "mission",
+    "option": "with in",   
+    "deta": 3
+}
+
+###
+GET http://localhost:3000/kpi/
