@@ -22,7 +22,7 @@ dotenv.config();
 mongoose.connect(process.env.URL, { tlsAllowInvalidCertificates: true });
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console.log("MongoDB connection error")));
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once("open", async function () {console.log("Connected to the database")});
 
 const app = express();
