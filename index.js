@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import cors from "cors"
 import {
     gettigAllSpecs,
     gettingOneSpec,
@@ -27,7 +28,7 @@ db.once("open", async function () {console.log("Connected to the database")});
 
 const app = express();
 const port = 3000;
-
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
@@ -47,13 +48,13 @@ app.delete("/spec/:id", getSpec, deletingOneSpec);
 
 
 // getting all kpis
-app.get("/kpi", gettigAllKpis);
+app.get("/spec/spec:id/kpi", gettigAllKpis);
 // getting one kpi
-app.get("/kpi/:id", getKpi, gettingOneKpi);
+app.get("/spec/spec:id/kpi/kpi:id", getKpi, gettingOneKpi);
 // creating One kpi
 app.post("/kpi", creattingOneKpi);
 // updating One kpi
-app.patch("/kpi/:id", getKpi, updatingOneKpi);
+app.patch("/spec/spec:id/kpi/kpi:id", getKpi, updatingOneKpi);
 // deleting One kpi
-app.delete("/kpi/:id", getKpi, deletingOneKpi);
+app.delete("/spec/spec:id/kpi/kpi:id", getKpi, deletingOneKpi);
 

@@ -1,7 +1,7 @@
 GET http://localhost:3000/spec
 
 ###
-GET http://localhost:3000/spec/6565e0d564485285012d0b7f
+GET http://localhost:3000/spec/656c425f5b17c7de57feb28a
 
 
 ###
@@ -10,22 +10,20 @@ POST http://localhost:3000/spec
 Content-Type: application/json
 
 {
-    "order": 2,
-    "title": "wefwr",
-    "content": "cdv",
+    "title": "new spec",
+    "content": "cdvvntjrnbtrkb kgmkrtbvtrm",
     "status": "In progress",
     "date": "2023-11-27",
-    "Kpi":[] 
-    
+    "participants": ["A", "S"]
 }
 ###
 
-DELETE http://localhost:3000/spec/6565e0a764485285012d0b7c
+DELETE http://localhost:3000/spec/656d9d9979469e18e700b164
 
 
 ###
 
-PATCH http://localhost:3000/65646a4607dfc737a87e7850
+PATCH http://localhost:3000/656d9d9979469e18e700b164
 Content-Type: application/json
 
 {
