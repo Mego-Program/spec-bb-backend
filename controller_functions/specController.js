@@ -27,9 +27,10 @@ const creattingOneSpec = async (req, res) => {
         order: req.body.order,
         title: req.body.title,   
         content: req.body.content,
-        createDate: req.body.createDate,
+        date: req.body.date,
         status: req.body.status,
-        Kpi: req.body.Kpi
+        Kpi: req.body.Kpi,
+        participants: req.body.participants
         })
     try{
         const createSpec = await newSpec.save()

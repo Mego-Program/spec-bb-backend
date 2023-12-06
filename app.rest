@@ -1,7 +1,7 @@
 GET http://localhost:3000/spec
 
 ###
-GET http://localhost:3000/spec/656c425f5b17c7de57feb28a
+GET http://localhost:3000/spec/656dc9c55909cbcc700a6d75
 
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:3000/spec/656d9d9979469e18e700b164
+DELETE http://localhost:3000/spec/6570460a4a30eedcff3bd723
 
 
 ###
@@ -38,8 +38,26 @@ Content-Type: application/json
 {
     "mission": "mission",
     "option": "with in",   
-    "deta": 3
+    "date": 3
 }
 
 ###
+
+DELETE http://localhost:3000/kpi/65705174dc8928fb43ef9c9a
+
+###
 GET http://localhost:3000/kpi/
+
+###
+
+GET http://localhost:3000/spec/656dc9c55909cbcc700a6d75/kpi
+
+###
+
+#// insert spec in kpi
+POST http://localhost:3000/specs/657046964a30eedcff3bd72e/kpi/6570462f4a30eedcff3bd725
+
+###
+
+#// insert kpi in spec
+POST http://localhost:3000/spec/657046964a30eedcff3bd72e/kpis/65705174dc8928fb43ef9c9a

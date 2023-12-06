@@ -28,16 +28,14 @@ const specSchema = new mongoose.Schema({
       enum: ['Todo', 'In progress', 'Done'],
       required: true
     },
-    Kpi: [{
+    kpi: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Kpi",
       // required: true
     }],
-    participants: {
-      tags: [{type: String}]
-
-  },
-
+    participants: [{
+      type: String
+  }],
     // boardID: {
     //   type: String
     // }

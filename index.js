@@ -12,11 +12,15 @@ import {
 } from "./controller_functions/specController.js"
 import {
     gettigAllKpis,
-    gettingOneKpi,
+    gettigAllKpisInSpec,
+    gettingOneKpiInSpec,
     creattingOneKpi,
+    insertSpecInKpi,
+    insertExistingKpiInSpec,
     updatingOneKpi,
     deletingOneKpi,
-    getKpi
+    getKpi,
+    removeKpiReferenceFromSpec
 } from "./controller_functions/kpiController.js"
 dotenv.config();
 
@@ -46,15 +50,22 @@ app.patch("/spec/:id", getSpec, updatingOneSpec);
 // deleting One spec
 app.delete("/spec/:id", getSpec, deletingOneSpec);
 
-
 // getting all kpis
-app.get("/spec/spec:id/kpi", gettigAllKpis);
-// getting one kpi
-app.get("/spec/spec:id/kpi/kpi:id", getKpi, gettingOneKpi);
+app.get("/kpi", gettigAllKpis);
+// getting all kpis from specific spec
+app.get("/spec/:id/kpi", gettigAllKpisInSpec);
+// getting one kpi from specific spec
+app.get("/spec/spec:id/kpi/kpi:id", getKpi, gettingOneKpiInSpec);
 // creating One kpi
 app.post("/kpi", creattingOneKpi);
-// updating One kpi
+// insert spec in kpi
+app.post('/specs/:specId/kpi/:kpiId', insertSpecInKpi);
+// insert kpi in spec
+app.post('/spec/:specId/kpis/:kpiId', insertExistingKpiInSpec);
+// updating One kpi from specific spec
 app.patch("/spec/spec:id/kpi/kpi:id", getKpi, updatingOneKpi);
 // deleting One kpi
+app.delete("/kpi/:id", getKpi, removeKpiReferenceFromSpec, deletingOneKpi);
+// deleting One kpi from specific spec
 app.delete("/spec/spec:id/kpi/kpi:id", getKpi, deletingOneKpi);
 
