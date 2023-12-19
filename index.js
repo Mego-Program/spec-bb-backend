@@ -14,8 +14,7 @@ import {
     gettigAllKpis,
     gettigAllKpisInSpec,
     gettingOneKpiInSpec,
-    creattingOneKpi,
-    insertSpecInKpi,
+    createKpiInSpec,
     insertExistingKpiInSpec,
     updatingOneKpi,
     deletingOneKpi,
@@ -24,7 +23,7 @@ import {
 } from "./controller_functions/kpiController.js"
 dotenv.config();
 
-mongoose.connect(process.env.URL, { tlsAllowInvalidCertificates: true });
+mongoose.connect(process.env.DB_URL, { tlsAllowInvalidCertificates: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -55,11 +54,9 @@ app.get("/kpi", gettigAllKpis);
 // getting all kpis from specific spec
 app.get("/spec/:id/kpi", gettigAllKpisInSpec);
 // getting one kpi from specific spec
-app.get("/spec/spec:id/kpi/kpi:id", getKpi, gettingOneKpiInSpec);
-// creating One kpi
-app.post("/kpi", creattingOneKpi);
+app.get("/spec/spec:id/kpi/kpi:id", getKpi, gettingOneKpiInSpec); 
 // insert spec in kpi
-app.post('/specs/:specId/kpi/:kpiId', insertSpecInKpi);
+app.post('/specs/:specId/kpi/:kpiId', createKpiInSpec);
 // insert kpi in spec
 app.post('/spec/:specId/kpis/:kpiId', insertExistingKpiInSpec);
 // updating One kpi from specific spec
