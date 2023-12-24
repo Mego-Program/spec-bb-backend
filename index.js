@@ -22,9 +22,10 @@ import {
     getKpi,
     removeKpiReferenceFromSpec
 } from "./controller_functions/kpiController.js"
+import { users } from "./controller_functions/infraImport.js"
 dotenv.config();
 
-mongoose.connect(process.env.URL, { tlsAllowInvalidCertificates: true });
+mongoose.connect(process.env.DB_URL, { tlsAllowInvalidCertificates: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -69,3 +70,4 @@ app.delete("/kpi/:id", getKpi, removeKpiReferenceFromSpec, deletingOneKpi);
 // deleting One kpi from specific spec
 app.delete("/spec/spec:id/kpi/kpi:id", getKpi, deletingOneKpi);
 
+app.get("/controller_functions/infraImport/infra", users);
