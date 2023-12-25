@@ -22,7 +22,7 @@ const gettingOneSpec = async (req, res) => {
     }
 }
 
-const creattingOneSpec = async (req, res) => { 
+const creattingSpec = async (req, res) => {
     const newSpec = new Spec({
         order: req.body.order,
         title: req.body.title,   
@@ -92,4 +92,4 @@ async function getSpec(req, res, next){
     res.geting = geting
     next()
 }
-export {gettigAllSpecs, gettingOneSpec, creattingOneSpec, updatingOneSpec, deletingOneSpec, getSpec}
+export {gettigAllSpecs, gettingOneSpec, creattingSpec, updatingOneSpec, deletingOneSpec, getSpec}
