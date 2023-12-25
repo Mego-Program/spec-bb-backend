@@ -1,7 +1,7 @@
 GET http://localhost:3000/spec
 
 ###
-GET http://localhost:3000/spec/6565e0d564485285012d0b7f
+GET http://localhost:3000/spec/656dc9c55909cbcc700a6d75
 
 
 ###
@@ -10,22 +10,20 @@ POST http://localhost:3000/spec
 Content-Type: application/json
 
 {
-    "order": 2,
-    "title": "wefwr",
-    "content": "cdv",
+    "title": "new spec",
+    "content": "cdvvntjrnbtrkb kgmkrtbvtrm",
     "status": "In progress",
     "date": "2023-11-27",
-    "Kpi":[] 
-    
+    "participants": ["A", "S"]
 }
 ###
 
-DELETE http://localhost:3000/spec/6565e0a764485285012d0b7c
+DELETE http://localhost:3000/spec/6570460a4a30eedcff3bd723
 
 
 ###
 
-PATCH http://localhost:3000/65646a4607dfc737a87e7850
+PATCH http://localhost:3000/656d9d9979469e18e700b164
 Content-Type: application/json
 
 {
@@ -40,8 +38,26 @@ Content-Type: application/json
 {
     "mission": "mission",
     "option": "with in",   
-    "deta": 3
+    "date": 3
 }
 
 ###
+
+DELETE http://localhost:3000/kpi/65705174dc8928fb43ef9c9a
+
+###
 GET http://localhost:3000/kpi/
+
+###
+
+GET http://localhost:3000/spec/656dc9c55909cbcc700a6d75/kpi
+
+###
+
+#// insert spec in kpi
+POST http://localhost:3000/specs/657046964a30eedcff3bd72e/kpi/6570462f4a30eedcff3bd725
+
+###
+
+#// insert kpi in spec
+POST http://localhost:3000/spec/657046964a30eedcff3bd72e/kpis/65705174dc8928fb43ef9c9a

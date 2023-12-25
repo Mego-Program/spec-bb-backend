@@ -1,40 +1,112 @@
 import Kpi from "../KPIModel.js"
-
+import Spec from "../SpecModel.js"
 
 const gettigAllKpis = async (req, res) => {
     try {
-        const foundKpi = await Kpi.find()
-    return res.json(foundKpi)
+        const foundkpi = await Kpi.find()
+    return res.json(foundkpi)
     } catch (err) {
         res.status(500).json({message: err.message })
     }
 }
 
-const gettingOneKpi = async (req, res) => {
+const gettigAllKpisInSpec = async (req, res) => {
     try {
-        const foundKpi = await Kpi.findById(req.params.id);
-        if (!foundKpi) {
-            return res.status(404).json({ message: "Cannot find kpi" });
-        }
-        return res.json(foundKpi);
+      const specId = req.params.id;
+      const kpis = await Kpi.find({ specId });
+      
+      if (!kpis || kpis.length === 0) {
+        return res.status(404).json({ message: 'kpis not found for this Spec' });
+      }
+  
+      res.json({ kpis });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err.message });
     }
-}
+  };
+  
 
+const gettingOneKpiInSpec = async (req, res) => {
+    try {
+      const { specId, kpiId } = req.params;
+      
+      const kpi = await Kpi.findOne({ _id: kpiId, specId });
+      
+      if (!kpi) {
+        return res.status(404).json({ message: 'kpi not found for this Spec' });
+      }
+  
+      res.json({ kpi });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+
+  const insertExistingKpiInSpec = async (req, res) => {
+    try {
+      const { specId, kpiId } = req.params;
+  
+      const spec = await Spec.findById(specId);
+      if (!spec) {
+        return res.status(404).json({ message: 'Spec not found' });
+      }
+  
+      const kpi = await Kpi.findById(kpiId);
+      if (!kpi) {
+        return res.status(404).json({ message: 'kpi not found' });
+      }
+
+      if (spec.kpi.includes(kpi._id)) {
+        return res.status(400).json({ message: 'kpi is already associated with the Spec' });
+      }
+  
+      spec.kpi.push(kpi._id);
+      await spec.save();
+  
+      res.status(200).json({ message: 'kpi associated with Spec successfully' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
+  
 const creattingOneKpi = async (req, res) => { 
-    const newKpi = new Kpi({
+    const newkpi = new Kpi({
         mission: req.body.mission,
         option: req.body.option,   
-        deta: req.body.deta
+        date: req.body.date,
+        spec: req.body.spec
         })
     try{
-        const createKpi = await newKpi.save()
-        return res.status(201).json(createKpi)
+        const createkpi = await newkpi.save()
+        return res.status(201).json(createkpi)
     } catch (err) {
         res.status(400).json({message: err.message})
     }
 }
+
+const insertSpecInKpi = async (req, res) => {
+    try {
+      const { specId, kpiId } = req.params;
+  
+      const spec = await Spec.findById(specId);
+      if (!spec) {
+        return res.status(404).json({ message: 'Spec not found' });
+      }
+  
+      const kpi = await Kpi.findById(kpiId);
+      if (!kpi) {
+        return res.status(404).json({ message: 'kpi not found' });
+      }
+  
+      // Associate the kpi with the Spec by updating its specId
+      kpi.spec = spec._id;
+      await kpi.save();
+  
+      res.status(200).json({ message: 'kpi associated with Spec successfully' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  };
 
 const updatingOneKpi = async (req, res) => {
     if (req.body.mission != null) {
@@ -43,12 +115,12 @@ const updatingOneKpi = async (req, res) => {
     if (req.body.option != null) {
         res.geting.option = req.body.option
     }
-    if (req.body.deta != null) {
-        res.getingkpi.deta = req.body.deta
+    if (req.body.date != null) {
+        res.getingkpi.date = req.body.date
     }
     try {
-        const updatedKpi = await res.getingkpi.save()
-        res.json(updatedKpi)
+        const updatedkpi = await res.getingkpi.save()
+        res.json(updatedkpi)
     } catch (err){
         res.status(400).json({massage: err.massage})
     }
@@ -57,7 +129,7 @@ const updatingOneKpi = async (req, res) => {
 const deletingOneKpi = async (req, res) => {
     try{
         await res.getingkpi.deleteOne()
-        res.json({message: "Deleted Kpi"})
+        res.json({message: "Deleted kpi"})
     } catch (err){
         res.status(500).json({message: err.message })
     }
@@ -76,4 +148,15 @@ async function getKpi(req, res, next){
     res.getingkpi = getingkpi
     next()
 }
-export {gettigAllKpis, gettingOneKpi, creattingOneKpi, updatingOneKpi, deletingOneKpi, getKpi}
+
+const removeKpiReferenceFromSpec = async function(req, res, next) {
+  try {
+    const kpiId = req.params.id;
+    await Spec.updateMany({ kpi: kpiId }, { $pull: { kpi: kpiId } });
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+export {gettigAllKpis, gettigAllKpisInSpec, gettingOneKpiInSpec,insertExistingKpiInSpec,  creattingOneKpi, insertSpecInKpi, updatingOneKpi, deletingOneKpi, getKpi, removeKpiReferenceFromSpec}

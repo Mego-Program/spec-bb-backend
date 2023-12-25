@@ -22,14 +22,15 @@ const gettingOneSpec = async (req, res) => {
     }
 }
 
-const creattingOneSpec = async (req, res) => { 
+const creattingSpec = async (req, res) => {
     const newSpec = new Spec({
         order: req.body.order,
         title: req.body.title,   
         content: req.body.content,
-        createDate: req.body.createDate,
+        date: req.body.date,
         status: req.body.status,
-        Kpi: req.body.Kpi
+        Kpi: req.body.Kpi,
+        participants: req.body.participants
         })
     try{
         const createSpec = await newSpec.save()
@@ -91,4 +92,4 @@ async function getSpec(req, res, next){
     res.geting = geting
     next()
 }
-export {gettigAllSpecs, gettingOneSpec, creattingOneSpec, updatingOneSpec, deletingOneSpec, getSpec}
+export {gettigAllSpecs, gettingOneSpec, creattingSpec, updatingOneSpec, deletingOneSpec, getSpec}

@@ -3,12 +3,13 @@ import Kpi from "./KPIModel.js"
 
 const date = new Date()
 const dateNew = (date.getDate() + "-" + parseInt(date.getMonth() + 1).toString() +"-" + date.getFullYear())
+const dateD = new Date(dateNew)
 
 const specSchema = new mongoose.Schema({
-    order: {
-      type: Number,
-      required: true 
-    },
+    // order: {
+    //   type: Number,
+    //   required: true 
+    // },
     title:  {
       type: String,
       required: true
@@ -19,22 +20,25 @@ const specSchema = new mongoose.Schema({
     },
     date: { 
       type: Date, 
-      // default: dateNew 
-      default: Date.now
+      default: dateD 
+      //default: Date.now
     },
     status: {
       type: String,
       enum: ['Todo', 'In progress', 'Done'],
       required: true
     },
-    Kpi: [{
+    kpi: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Kpi",
-      required: true
+      // required: true
     }],
-    boardID: {
+    participants: [{
       type: String
-    }
+  }],
+    // boardID: {
+    //   type: String
+    // }
   });
 
 

@@ -11,10 +11,14 @@ const KPISchema = new mongoose.Schema({
       enum: ['with in', 'until'],
       required: true
     }, 
-    deta:{
+    date:{
       type: String, Number,
       required: true
-    }
+    },
+    spec: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Spec', 
+    },
   });
 
 const Kpi = mongoose.model("Kpi", KPISchema);
