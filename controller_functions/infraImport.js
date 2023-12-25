@@ -19,7 +19,7 @@ export {router as usersRouter, users};
 router.get('/infra', async (req, res) => {
     try {
         const token = req.headers.authorization;
-        const result = await allUsers(token);
+        const result = await users(token);
         res.status(200).json(result);
     } catch (err) {
         console.error(err)
