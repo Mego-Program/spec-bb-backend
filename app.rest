@@ -61,3 +61,13 @@ POST http://localhost:3000/specs/657046964a30eedcff3bd72e/kpi/6570462f4a30eedcff
 
 #// insert kpi in spec
 POST http://localhost:3000/spec/657046964a30eedcff3bd72e/kpis/65705174dc8928fb43ef9c9a
+
+###
+// getting all users from infra
+GET https://infra-backend-bb-mego-program1.vercel.app/api/users/list
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InM5QGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTcwMzA3NzkzMTM2MywiaWF0IjoxNzAzMDc3OTMxLCJleHAiOjg2NTcwMzA3NzkzMX0.0GXqi3MUzGWfuM1LSTposWR6v-IGMcTRJiDMS44SGT4
+
+###
+// getting all users from spec backend
+GET http://localhost:3000/controller_functions/infraImport/infra
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InM5QGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTcwMzA3NzkzMTM2MywiaWF0IjoxNzAzMDc3OTMxLCJleHAiOjg2NTcwMzA3NzkzMX0.0GXqi3MUzGWfuM1LSTposWR6v-IGMcTRJiDMS44SGT4
