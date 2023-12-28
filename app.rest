@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:3000/spec/6570460a4a30eedcff3bd723
+DELETE http://localhost:3000/spec/658d51596bed8af5c33e6b2f
 
 
 ###
@@ -68,6 +68,6 @@ GET https://infra-backend-bb-mego-program1.vercel.app/api/users/list
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InM5QGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTcwMzA3NzkzMTM2MywiaWF0IjoxNzAzMDc3OTMxLCJleHAiOjg2NTcwMzA3NzkzMX0.0GXqi3MUzGWfuM1LSTposWR6v-IGMcTRJiDMS44SGT4
 
 ###
-// getting all users from spec backend
+ //getting all users from spec backend
 GET http://localhost:3000/controller_functions/infraImport/infra
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InM5QGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTcwMzA3NzkzMTM2MywiaWF0IjoxNzAzMDc3OTMxLCJleHAiOjg2NTcwMzA3NzkzMX0.0GXqi3MUzGWfuM1LSTposWR6v-IGMcTRJiDMS44SGT4
