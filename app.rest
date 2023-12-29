@@ -1,7 +1,7 @@
 GET http://localhost:3000/spec
 
 ###
-GET http://localhost:3000/spec/656dc9c55909cbcc700a6d75
+GET http://localhost:3000/spec/657ef62a8f3f24d27dfcd13e
 
 
 ###
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:3000/spec/6570460a4a30eedcff3bd723
+DELETE http://localhost:3000/spec/657ef62a8f3f24d27dfcd13e
 
 
 ###
