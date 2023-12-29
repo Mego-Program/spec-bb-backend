@@ -6,26 +6,12 @@ import mongoose from "mongoose";
 const creatingSpecs = async (req, res) => {
     try {
         const data = new Spec(req.body);
-        console.log(data)
         const result = await data.save();
         res.status(200).json({message:"spec created",data:req.body})
     } catch (error) {
         res.status(400).json({error:error})
     }
 }
-
-// const getSpec = async (req, res) => {
-//     try {
-//         console.log(req.params.id)
-//         const spec = req.find(req.params.id)
-//         console.log(spec)
-//         res.status(200).json({data: spec})
-//         return spec
-//     } catch (error) {
-//       res.status(400).json({error:error})
-//     }
-// }
-
 
 const getAllSpecs = async (req=null, res) => {
     try {
@@ -37,44 +23,46 @@ const getAllSpecs = async (req=null, res) => {
     }
 }
 
-
-const updatingSpec = async (req, res) => {
-    let spec = getSpec(req.params.id)
-
-    let title = req.body.title
-    if (title) spec.title = title
-
-    let content = req.body.content
-    if (content) spec.content = content
-
-    let status = req.body.status
-    if (status) spec.status = status
-
-    let participants = req.body.participants
-    if (participants) spec.participants = participants
-
-    let kpis = req.body.kpis
-    if (kpis) spec.kpis = kpis
-
-    try {
-        const updatedSpec = await spec.save()
-        res.json(updatedSpec)
-    } catch (err){
-        res.status(400).json({massage: err.massage})
-    }
-}
-
 const deletingSpec = async (req, res) => {
-    let spec = getSpec(req.params.id)
     try {
-        const deletedSpec = await spec.delete()
-        res.json(deletedSpec)
-    } catch (err){
-        res.status(400).json({massage: err.massage})
+        const deletedSpec = await Spec.findByIdAndDelete(req.params.id);
+        if (!deletedSpec) {
+            return res.status(404).json({message: "Cannot find spec"});
+        }
+        console.log("This is deleted spec", deletedSpec)
+        return res.json(deletedSpec);
+    } catch (err) {
+        res.status(500).json({message: err.message});
     }
 }
 
-export {creatingSpecs, getAllSpecs, updatingSpec, deletingSpec}
+// const updatingSpec = async (req, res) => {
+//     let spec = getSpec(req.params.id)
+//
+//     let title = req.body.title
+//     if (title) spec.title = title
+//
+//     let content = req.body.content
+//     if (content) spec.content = content
+//
+//     let status = req.body.status
+//     if (status) spec.status = status
+//
+//     let participants = req.body.participants
+//     if (participants) spec.participants = participants
+//
+//     let kpis = req.body.kpis
+//     if (kpis) spec.kpis = kpis
+//
+//     try {
+//         const updatedSpec = await spec.save()
+//         res.json(updatedSpec)
+//     } catch (err){
+//         res.status(400).json({massage: err.massage})
+//     }
+// }
+
+export {creatingSpecs, getAllSpecs, deletingSpec}
 
 
 
