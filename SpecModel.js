@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Kpi from "./KPIModel.js"
 
 const date = new Date()
-const dateNew = (date.getDate() + "-" + parseInt(date.getMonth() + 1).toString() +"-" + date.getFullYear())
+const dateNew = (date.getDate() + "/" + parseInt(date.getMonth() + 1).toString() +"/" + date.getFullYear())
 const dateD = new Date(dateNew)
 
 const specSchema = new mongoose.Schema({

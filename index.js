@@ -64,7 +64,7 @@ app.post('/specs/:specId/kpi/:kpiId', insertSpecInKpi);
 // insert kpi in spec
 app.post('/spec/:specId/kpis/:kpiId', insertExistingKpiInSpec);
 // updating One kpi from specific spec
-app.patch("/spec/spec:id/kpi/kpi:id", getKpi, updatingOneKpi);
+app.patch("/spec/spec:id/kpi/kpi:id", getKpi, updatingOneKpi);  
 // deleting One kpi
 app.delete("/kpi/:id", getKpi, removeKpiReferenceFromSpec, deletingOneKpi);
 // deleting One kpi from specific spec
