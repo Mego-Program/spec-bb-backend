@@ -4,12 +4,14 @@ import mongoose from "mongoose";
 // db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // db.once("open", async function () {console.log("Connected to the database")});
 
+const date = new Date();
+const dateNew = date.toLocaleDateString()
 
 const SpecScheama = new mongoose.Schema({
     projectId: String,
-    time: {
-        type : Date,
-        default: Date.now()
+    date: {
+        type : String,
+        default: dateNew
     },
     status: {
         type: String,

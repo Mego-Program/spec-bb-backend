@@ -1,13 +1,18 @@
 import { Router } from "express";
 
-import {creatingSpecs, deletingSpec, getAllSpecs} from "../controller_functions/specController.js"
+import {creatingSpec, creatingKpis, getAllSpecs, saveSpec, deletingSpec} from "../controller_functions/specController.js"
 import {users} from "../controller_functions/infraImport.js";
+
+
 
 
 const router = Router();
 
 router.get('/', getAllSpecs)
-router.post('/save', creatingSpecs)
+router.get('/newspec', creatingSpec)
+router.get('/kpi', creatingKpis)
+
+router.post('/save', saveSpec)
 router.delete('/delete/:id', deletingSpec)
 
 router.get("/infraImport/allUsers", users);

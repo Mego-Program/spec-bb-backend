@@ -26,7 +26,7 @@ const specSchema = new mongoose.Schema({
     status: {
       type: String,
       enum: ['Todo', 'In progress', 'Done'],
-      required: true
+      // required: true
     },
     kpi: [{
       type: mongoose.Schema.Types.ObjectId,

@@ -1,13 +1,13 @@
 import {Spec, Kpi} from "../models/specScheam.js";
-import mongoose from "mongoose";
-// import Spec from "../SpecModel.js";
 
 
-const creatingSpecs = async (req, res) => {
+
+
+const saveSpec = async (req, res) => {
     try {
         const data = new Spec(req.body);
         const result = await data.save();
-        res.status(200).json({message:"spec created",data:req.body})
+        res.status(200).json({message: "spec created", data: req.body})
     } catch (error) {
         res.status(400).json({error:error})
     }
@@ -36,33 +36,19 @@ const deletingSpec = async (req, res) => {
     }
 }
 
-// const updatingSpec = async (req, res) => {
-//     let spec = getSpec(req.params.id)
-//
-//     let title = req.body.title
-//     if (title) spec.title = title
-//
-//     let content = req.body.content
-//     if (content) spec.content = content
-//
-//     let status = req.body.status
-//     if (status) spec.status = status
-//
-//     let participants = req.body.participants
-//     if (participants) spec.participants = participants
-//
-//     let kpis = req.body.kpis
-//     if (kpis) spec.kpis = kpis
-//
-//     try {
-//         const updatedSpec = await spec.save()
-//         res.json(updatedSpec)
-//     } catch (err){
-//         res.status(400).json({massage: err.massage})
-//     }
-// }
+const creatingSpec = (req, res) => {
+    const newSpec = new Spec
+    res.status(200).json({newSpec})
+    return newSpec
+}
 
-export {creatingSpecs, getAllSpecs, deletingSpec}
+const creatingKpis = (req, res) => {
+    const newKpi = new Kpi
+    res.status(200).json({newKpi})
+    return newKpi
+}
+
+export {creatingSpec, creatingKpis, getAllSpecs, saveSpec, deletingSpec}
 
 
 
