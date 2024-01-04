@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
 
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-// db.once("open", async function () {console.log("Connected to the database")});
-
 const date = new Date();
 const dateNew = date.toLocaleDateString()
 
@@ -37,21 +33,27 @@ const SpecScheama = new mongoose.Schema({
 
 
 const KpiScheama = new mongoose.Schema({
-    discreptions: String,
+    description: String,
     status: {
         type: String,
-        enum: ['Todo', 'In progress', 'Done'],
+        enum: ['Todo', 'In process', 'Done'],
         default: 'Todo'
     },
     option: {
         type: String,
         enum: ['with in', 'until'],
-        required: true
+        default: 'until',
     },
     days: {
-        type: String, Number,
-        required: true
+        type: Number, String,
+        default: 0,
+        required: true,
     },
+    period: {
+        type: String,
+        enum: ['Days', 'Weeks', 'Months'],
+        default: 'Days',
+    }
 });
 
 

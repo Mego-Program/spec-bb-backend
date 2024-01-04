@@ -14,7 +14,7 @@ const token = req.headers.authorization
     return res.status(200).json({data: response.data});
 }
 
-export {router as usersRouter, users};
+export {users};
 
 router.get('/infra', async (req, res) => {
     try {

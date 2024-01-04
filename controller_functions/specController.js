@@ -1,7 +1,7 @@
 import {Spec, Kpi} from "../models/specScheam.js";
 
 
-const getAllSpecs = async (req=null, res) => {
+const getAllSpecs = async (req, res) => {
     try {
         const allSpecsList = await Spec.find({});
         res.status(200).json({allSpecsList})
@@ -36,14 +36,17 @@ const creatingSpec =async (req, res) => {
 
 const updatingSpec = async (req, res) => {
     try {
-        const updateSpec = req.body
-        console.log(updateSpec)
-        const result = await Spec.replaceOne({_id: updateSpec._id}, updateSpec);
+        const result = await Spec.replaceOne({_id: req.body._id}, req.body);
         res.status(200).json({message: "spec updated", data: req.body})
     } catch (error) {
         console.log(error)
         res.status(400).json({error:error})
     }
+}
+
+const statusChange = async (req, res) => {
+    const result = await Spec.updateOne({_id: req.params.id}, {$set: {status: req.body.status}});
+    res.status(200).json({message: "status updated", data: result})
 }
 
 const creatingKpis = (req, res) => {
@@ -52,4 +55,4 @@ const creatingKpis = (req, res) => {
     return newKpi
 }
 
-export {creatingKpis, getAllSpecs, creatingSpec, updatingSpec, deletingSpec}
+export {creatingKpis, getAllSpecs, creatingSpec, updatingSpec, deletingSpec, statusChange}
