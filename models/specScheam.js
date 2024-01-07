@@ -11,7 +11,7 @@ const SpecScheama = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['active', 'In progress', 'Done'],
+        enum: ['active', 'In process', 'Done'],
         default: 'active'
     },
     title: {
