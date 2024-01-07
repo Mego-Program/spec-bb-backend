@@ -39,6 +39,9 @@ app.listen(port, () => {
 });
 
 app.use(express.json())
+app.get('/', (req, res) => {
+    res.send('Hello spec-Bnei-Brak Team! This is our Express server...');
+});
 
 // getting all specs
 app.get("/spec", gettigAllSpecs);
