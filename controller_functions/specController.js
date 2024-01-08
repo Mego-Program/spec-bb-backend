@@ -1,95 +1,58 @@
-import Spec from "../SpecModel.js";
+import {Spec, Kpi} from "../models/specScheam.js";
 
 
-const gettigAllSpecs = async (req, res) => {
+const getAllSpecs = async (req, res) => {
     try {
-        const foundSpecs = await Spec.find()
-    return res.json(foundSpecs)
+        const allSpecsList = await Spec.find({});
+        res.status(200).json({allSpecsList})
+        return allSpecsList
     } catch (err) {
         res.status(500).json({message: err.message })
     }
 }
 
-const gettingOneSpec = async (req, res) => {
+const deletingSpec = async (req, res) => {
     try {
-        const foundSpec = await Spec.findById(req.params.id).populate("Kpi");
-        if (!foundSpec) {
-            return res.status(404).json({ message: "Cannot find spec" });
+        const deletedSpec = await Spec.findByIdAndDelete(req.params.id);
+        if (!deletedSpec) {
+            return res.status(404).json({message: "Cannot find spec"});
         }
-        return res.json(foundSpec);
+        console.log("This is deleted spec", deletedSpec)
+        return res.json(deletedSpec);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({message: err.message});
     }
 }
 
-const creattingSpec = async (req, res) => {
-    const newSpec = new Spec({
-        order: req.body.order,
-        title: req.body.title,   
-        content: req.body.content,
-        date: req.body.date,
-        status: req.body.status,
-        Kpi: req.body.Kpi,
-        participants: req.body.participants
-        })
-    try{
-        const createSpec = await newSpec.save()
-        return res.status(201).json(createSpec)
-    } catch (err) {
-        res.status(400).json({message: err.message})
-    }
-}
-
-const updatingOneSpec = async (req, res) => {
-    if (req.body.order != null) {
-        res.geting.order = req.body.order
-    }
-    if (req.body.title != null) {
-        res.geting.title = req.body.title
-    }
-    if (req.body.content != null) {
-        res.geting.content = req.body.content
-    }
-    if (req.body.date != null) {
-        res.geting.date = req.body.date
-    }
-    if (req.body.status != null) {
-        res.geting.status = req.body.status
-    }
-    if (req.body.Kpi != null) {
-        res.geting.Kpi = req.body.Kpi
-    }
-    if (req.body.boardID != null) {
-        res.geting.boardID = req.body.boardID
-    }
+const creatingSpec =async (req, res) => {
     try {
-        const updatedSpec = await res.geting.save()
-        res.json(updatedSpec)
-    } catch (err){
-        res.status(400).json({massage: err.massage})
+        const data = new Spec(req.body);
+        const result = await data.save();
+        res.status(200).json({message: "spec created", data: req.body})
+    } catch (error) {
+        res.status(400).json({error:error})
     }
 }
 
-const deletingOneSpec = async (req, res) => {
-    try{
-        await res.geting.deleteOne()
-        res.json({message: "Deleted Spec"})
-    } catch (err){
-        res.status(500).json({message: err.message })
-    }
-}
-
-async function getSpec(req, res, next){
-    let geting
+const updatingSpec = async (req, res) => {
     try {
-        geting = await Spec.findById(req.params.id)
-        if (geting === null){
-            return res.status(404).json({message: "cannot find spec"})
-        } 
-    } catch (err){
-        return res.status(500).json({message: err.message })
+        const result = await Spec.replaceOne({_id: req.body._id}, req.body);
+        res.status(200).json({message: "spec updated", data: req.body})
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({error:error})
     }
-    res.geting = geting
-    next()
 }
-export {gettigAllSpecs, gettingOneSpec, creattingSpec, updatingOneSpec, deletingOneSpec, getSpec}
+
+const statusChange = async (req, res) => {
+    const result = await Spec.updateOne({_id: req.params.id}, {$set: {status: req.body.status}});
+    res.status(200).json({message: "status updated", data: result})
+}
+
+const creatingKpis = (req, res) => {
+    const newKpi = new Kpi
+    res.status(200).json({newKpi})
+    return newKpi
+}
+
+export {creatingKpis, getAllSpecs, creatingSpec, updatingSpec, deletingSpec, statusChange}

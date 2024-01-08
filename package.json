@@ -11,10 +11,10 @@
   "name": "spec-bb-backend",
   "description": "",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "type": "module",
   "scripts": {
-    "devStart": "nodemone index.js"
+    "devStart": "nodemone app.js"
   },
   "keywords": [],
   "author": "",
