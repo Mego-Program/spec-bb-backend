@@ -56,7 +56,6 @@ const KpiScheama = new mongoose.Schema({
     }
 });
 
-
 const Spec = mongoose.model('specs', SpecScheama, 'specs');
 const Kpi = mongoose.model('kpi', KpiScheama, 'kpi');
 
