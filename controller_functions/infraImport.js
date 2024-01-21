@@ -8,6 +8,7 @@ const router = express.Router();
 
 
 const users = async function(req, res){
+
     try{
         const token = req.headers.authorization
         console.log('token:', token)
