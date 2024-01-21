@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const date = new Date();
-const dateNew = date.toLocaleDateString('Israel')
+const dateNew = date.toLocaleDateString()
 
 const SpecScheama = new mongoose.Schema({
     projectId: String,
@@ -22,7 +22,9 @@ const SpecScheama = new mongoose.Schema({
         type: Object,
         required: true
     },
-    participants: [],
+    participants: [{
+        type: String
+    }],
     kpis: [/*{
         type: mongoose.Schema.Types.KpiScheama,
         required: true
