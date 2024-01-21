@@ -4,7 +4,7 @@ import {Spec, Kpi} from "../models/specScheam.js";
 const getAllSpecs = async (req, res) => {
     try {
         const allSpecsList = await Spec.find({});
-        res.status(200).json({data: allSpecsList})
+        res.status(200).json({allSpecsList})
         return allSpecsList
     } catch (err) {
         res.status(500).json({message: err.message })
