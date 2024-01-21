@@ -8,10 +8,14 @@ const router = express.Router();
 
 
 const users = async function(req, res){
-const token = req.headers.authorization
-    const response = await axios.get(`${process.env.API_URL}/api/users/list`, {
-        headers: {'authorization': token}});
-    return res.status(200).json({data: response.data});
+    try {
+        const token = req.headers.authorization
+        const response = await axios.get(`${process.env.API_URL}/api/users/list`, {
+            headers: {'authorization': token}});
+        return res.status(200).json({data: response.data});
+    } catch (err) {
+        console.error(err)
+    }
 }
 
 export {users};
